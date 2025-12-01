@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Registration Form</title>
+<style>
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;background:#f4f6f8;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+.card{background:#fff;padding:2rem;border-radius:12px;box-shadow:0 6px 20px rgba(16,24,40,0.08);width:360px}
+h2{margin:0 0 1rem 0;text-align:center}
+label{font-size:0.9rem;display:block;margin-top:0.6rem}
+input[type="text"],input[type="password"]{width:100%;padding:0.6rem;border:1px solid #d1d5db;border-radius:8px;margin-top:0.35rem}
+.error{color:#b91c1c;font-size:0.85rem;margin-top:0.35rem;display:none}
+.btn{margin-top:1rem;width:100%;padding:0.7rem;border-radius:8px;border:0;background:#0ea5a4;color:#fff;font-weight:600;cursor:pointer}
+.small{font-size:0.85rem;color:#6b7280;margin-top:0.75rem;text-align:center}
+</style>
+</head>
+<body>
+<form class="card" id="regForm" onsubmit="return handleSubmit(event)">
+<h2>Register</h2>
+
+
+<label for="username">Username</label>
+<input id="username" name="username" type="text" required minlength="3" maxlength="30" />
+<div id="uErr" class="error">Username must be 3–30 characters.</div>
+
+
+<label for="password">Password</label>
+<input id="password" name="password" type="password" required minlength="6" />
+
+
+<label for="confirm">Confirm Password</label>
+<input id="confirm" name="confirm" type="password" required />
+<div id="pErr" class="error">Passwords do not match.</div>
+
+
+<button class="btn" type="submit">Create account</button>
+
+
+<div class="small">By continuing you agree to our <a href="#">Terms</a>.</div>
+</form>
+
+
+<script>
+function show(el, yes=true){ el.style.display = yes? 'block' : 'none' }
+function handleSubmit(e){
+e.preventDefault();
+const u = document.getElementById('username');
+const p = document.getElementById('password');
+const c = document.getElementById('confirm');
+const uErr = document.getElementById('uErr');
+const pErr = document.getElementById('pErr');
+
+
+// simple client-side validation
+let ok = true;
+if(u.value.trim().length < 3 || u.value.trim().length > 30){ show(uErr,true); ok = false;} else show(uErr,false);
+
+
+if(p.value.length < 6 || p.value !== c.value){ show(pErr,true); ok = false; } else show(pErr,false);
+
+
+if(!ok) return false;
+
+
+// If you want to actually submit to a server, replace this block with fetch/XHR
+alert('Registration successful for ' + u.value.trim());
+// reset form
+e.target.reset();
+</html>
